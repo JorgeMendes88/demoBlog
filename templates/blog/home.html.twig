@@ -1,0 +1,30 @@
+{% extends "base.html.twig" %}
+{# Chaque template hérite du du gabarit de base, base.html.twig (header, footer, nav etc...), chaque bloc appelé dans le template appel les blocs du fichier base.html.twig #}
+
+{# Twig est un moteur de template, un langage de rendu, toute les données provenant du controller seront traitées avec le langage Twig, donc plus aucune ligne de PHP dans les rendus visuel  #}
+
+{# le bloc 'body' fait référence au bloc 'body' du fichier base.html.twig #}
+{% block body %}
+
+    <div class="container">
+    
+        <h1 class="display-4 fst-italic text-center my-5">{{ title }}</h1>
+        {# {{  }} -> double accolades, ce que l'on appel une interpolation #}
+        {# {% %} -> commande Twig #}
+        {# title : varaible Twig qui provient du controller BlogController -> render([])  #}
+
+        {# {% if age > 18 %}
+            <p>Tu es majeur et tu as {{ age }} ans !</p>
+        {% else %}
+            <p>Tu es mineur !</p>
+        {% endif %} #}
+
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo eaque, consequuntur illo quis quo commodi? Error ipsam dolorem harum magnam odit quod possimus, mollitia veniam? Ratione rem magnam, voluptates at quos laudantium et voluptatum sapiente esse quibusdam enim quo ut, mollitia itaque earum nihil nesciunt omnis, laborum velit unde? Ipsa expedita sequi maiores voluptatum repellendus enim similique vel omnis praesentium quo. Reprehenderit quaerat perspiciatis at amet placeat repudiandae et cupiditate architecto commodi sit dolor ipsam, eum magni repellat qui tempora dolorum, inventore rem ipsum maiores. Praesentium itaque autem et sequi! Doloremque quia impedit vitae, obcaecati commodi inventore sequi aut deserunt!</p>
+
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo eaque, consequuntur illo quis quo commodi? Error ipsam dolorem harum magnam odit quod possimus, mollitia veniam? Ratione rem magnam, voluptates at quos laudantium et voluptatum sapiente esse quibusdam enim quo ut, mollitia itaque earum nihil nesciunt omnis, laborum velit unde? Ipsa expedita sequi maiores voluptatum repellendus enim similique vel omnis praesentium quo. Reprehenderit quaerat perspiciatis at amet placeat repudiandae et cupiditate architecto commodi sit dolor ipsam, eum magni repellat qui tempora dolorum, inventore rem ipsum maiores. Praesentium itaque autem et sequi! Doloremque quia impedit vitae, obcaecati commodi inventore sequi aut deserunt!</p>
+
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo eaque, consequuntur illo quis quo commodi? Error ipsam dolorem harum magnam odit quod possimus, mollitia veniam? Ratione rem magnam, voluptates at quos laudantium et voluptatum sapiente esse quibusdam enim quo ut, mollitia itaque earum nihil nesciunt omnis, laborum velit unde? Ipsa expedita sequi maiores voluptatum repellendus enim similique vel omnis praesentium quo. Reprehenderit quaerat perspiciatis at amet placeat repudiandae et cupiditate architecto commodi sit dolor ipsam, eum magni repellat qui tempora dolorum, inventore rem ipsum maiores. Praesentium itaque autem et sequi! Doloremque quia impedit vitae, obcaecati commodi inventore sequi aut deserunt!</p>
+
+    </div>
+
+{% endblock %}

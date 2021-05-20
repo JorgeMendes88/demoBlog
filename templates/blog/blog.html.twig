@@ -1,0 +1,51 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    BlogSymfony | Liste des articles 
+{% endblock %}
+
+{% block body %}
+
+    {# <h1 class="display-4 fst-italic text-center my-5">Liste des articles</h1> #}
+
+    {# {{ dump(articles) }} #}
+
+    <div class="row mb-2">
+
+        {# articles représente tout les articles selectionnés en BDD #}
+        {# oneArticle est une variable de reception que nous déclarons dans la boucle qui receptionne les données d'1 article par tour de boucle FOR #}
+        {% for oneArticle in articles %}
+
+            {# {{ dump(oneArticle) }} #}
+            {# Pour piocher dans la variable de réception oneArticle nous utilisons le '.' -> oneArticle.titre #}
+            {# striptags : filtre Twig permettant de supprimer les balises html éventuellement stockés en BDD #}
+            {# date() : fonction Twig permettant de formater une date et une heure #}
+            {# slice() : fonction Twig permettant de couper une partie de la chaine de caractères #}
+                
+            <div class="col-md-4">
+                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static">
+
+                        <strong class="d-inline-block mb-2 text-primary">{{ oneArticle.category.titre }}</strong>
+
+                        <h3 class="mb-0">{{ oneArticle.titre }}</h3>
+
+                        <div class="mb-1 text-muted">Posté le {{ oneArticle.date|date('d/m/Y') }} à {{ oneArticle.date|date('H:i:s') }}</div>
+
+                        <p class="card-text mb-auto">{{ oneArticle.contenu|striptags|slice(0,100) }}...</p>
+
+                        <a href="{{ path('blog_show', {'id': oneArticle.id}) }}" class="stretched-link">Lire la suite</a>
+
+                        {# On définit la route vers le détail de l'article, comme c'est une route paramétrée, nous devons lui fournir en argument l'id de l'article #}
+                    </div>
+                    <div class="col-md-6 d-none d-lg-block">
+                        <img src="{{ asset('uploads/images/' ~ oneArticle.image) }}" alt="{{ oneArticle.titre }}" class="col-md-12">
+                    </div>
+                </div>
+            </div>
+
+        {% endfor %}
+
+    </div>
+    
+{% endblock %}

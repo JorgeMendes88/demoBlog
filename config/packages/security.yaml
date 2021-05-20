@@ -1,0 +1,49 @@
+security:
+    
+    # on définit un encoder, c'est à dire que l'on précise que dans l'entité User nous allons encoder une valeur avec un algorithm bcrypt
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
+
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        users_in_memory: { memory: null }
+
+        # On définit un provider afin de préciser à Symfony où sont stockés les données de l'utilisteur et quelle propriété sera contrôllé au moment de la connexion
+        in_database:
+            entity:
+                class: App\Entity\User
+                property: email
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: true
+            lazy: true
+            
+            # on définit par rapport à quel provider, qelles données de la BDD sont à comparer au moment de la connexion
+            provider: in_database
+
+            # on définit que la connexion s'établit via un formulaire de login
+            form_login: 
+                login_path: security_login # route du formulaire de connexion
+                check_path: security_login # route pour comparer les identifiants de connexion 
+
+            # on définit la route permettant de se déconnecter
+            logout: 
+                path: security_logout 
+                target: blog
+
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
+
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/profile, roles: ROLE_USER }

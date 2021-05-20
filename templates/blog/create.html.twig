@@ -1,0 +1,63 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+
+    BlogSymfony | 
+
+    {% if editMode %}
+        Modification de l'article
+    {% else %}
+        Nouvel article
+    {% endif %}
+
+{% endblock %}
+
+{% block body %}
+
+    <h1 class="display-4 fst-italic text-center my-5">
+    {# Si editMode retourne TRUE, cela veut dire que la variable editMode retourne un ID d'article, c'est donc une modification #}
+    {% if editMode %}
+        Modification de l'article
+    {% else %}
+    {# Sinon editMode ne retourne pas d'ID, renvoi FALSE, c'est donc une insertion, création d'un nouvel article #}
+        Nouvel article
+    {% endif %}
+    </h1>
+
+    <div class="container">
+
+        {# ouverture de la balise <form> + method="" + action="" #}
+        {{ form_start(formArticle, {'attr': {'class': 'col-md-7 mx-auto'}}) }}
+
+            {{ form_row(formArticle.titre, {'label': "Titre de l'article"}) }}
+
+            {{ form_row(formArticle.category, {'label': "Catégorie de l'article"}) }}
+
+            {{ form_row(formArticle.contenu, {'attr': {'rows': 15}, 'label': "Contenu de l'article"}) }}
+
+            {{ form_row(formArticle.image) }}
+
+            {# Si imageArticle retourne TRUE, cela veut dire que l'article possède une image, c'est une modification, on affiche donc l'image de l'article #}
+            {% if imageArticle %}
+
+                <p class="mt-2">
+                    <em>Vous pouvez uploder une image si vous souhaitez la modifier</em><br>
+                    <img src="{{ asset('uploads/images/' ~ imageArticle) }}" alt="">
+                </p>
+                
+            {% endif %}
+
+            <button type="submit" class="btn btn-dark mb-5 mt-2">
+             {% if editMode %}
+                Enregistrer les modifications
+            {% else %}
+                Enregistrer
+            {% endif %}
+            </button>
+
+        {{ form_end(formArticle) }}
+        {# fermeteure de la balise </form> #}
+
+    </div>
+    
+{% endblock %}
