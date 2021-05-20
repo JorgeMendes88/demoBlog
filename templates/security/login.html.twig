@@ -8,10 +8,28 @@
 
     <h1 class="display-4 fst-italic text-center my-5">Identifiez-vous</h1>
 
+    {% if error %}
+
+        <p class="bg-danger text-white text-center p-3 col-md-3 mx-auto rounded">
+            {{ error.messageKey | trans(error.messageData, 'security') }}
+            {# trans(error.messageData, 'security') : permet de pointer sur le fichier 'translations/security.en.php' qui contient la personnalisation des messages utilisateurs par défaut de Symfony, la traduction de messages #}
+
+        </p>
+
+    {% endif %}
+
+    {% for message in app.flashes('success') %}
+
+        <div class="col-md-4 mx-auto bg-success text-xhite rounded p-3 text-center mb-3">
+            {{ message }}
+        </div>
+
+    {% endfor %}
+
     <form method="post" action="{{ path('security_login') }}" class="col-md-3 mx-auto">
         <div class="mb-3">
             <label for="_username" class="form-label">Email</label>
-            <input type="text" class="form-control" id="_username" name="_username" placeholder="name@example.com">
+            <input type="text" class="form-control" id="_username" name="_username" placeholder="name@example.com" value="{{ lastEmail }}">
         </div>
         <div class="mb-3">
             <label for="_password" class="form-label">Mot de passe</label>

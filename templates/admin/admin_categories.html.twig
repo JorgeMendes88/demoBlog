@@ -1,0 +1,52 @@
+{% extends "base_admin.html.twig" %}
+
+{% block title %}
+    BlogSymfony | Gestion des catégories
+{% endblock %}
+
+{% block body %}
+
+    {# <h1>Gestion des catégories</h1> #}
+
+    <a href="" class="btn btn-primary my-4">CREATION D'UNE NOUVELLE CATEGORIE</a>
+
+    <table class="table table-bordered mt-2">
+    
+        <tr class="text-center">
+        {% for data in colonnes %}
+
+            <th>{{ data|upper }}</th>
+            
+        {% endfor %}
+            <th>NB ARTICLE</th>
+            <th>MODIF</th>
+            <th>SUPP</th>
+        </tr>
+
+        {% for data in categories %}
+            <tr>
+                <td class="text-center">{{ data.id }}</td>
+                <td class="text-center">{{ data.titre }}</td>
+                <td>{{ data.description }}</td>
+                <td class="text-center">{{ data.articles|length }}</td>
+
+                <td>
+                    <a href="" class="btn btn-dark">
+                        <i class=" bi bi-pencil-square"></i>
+                    </a>
+                </td>
+                <td>
+                    <a href="" class="btn btn-danger" onclick="return(confirm('Voulez-vous réellement supprimer cet article?'));">
+                        <i class="bi bi-trash"></i>
+                    </a> 
+                </td>
+            </tr>
+        {% endfor %}
+
+    
+    </table>
+
+{% endblock %}
+
+
+

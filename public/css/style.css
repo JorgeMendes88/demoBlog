@@ -2,3 +2,11 @@
     /* display: none !important; */
     background-color: #dc3545;
 }
+
+.img-article{
+    width:150px;
+}
+
+tr, td{
+    vertical-align: middel;
+}
