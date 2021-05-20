@@ -31,14 +31,22 @@ class SecurityController extends AbstractController
 
         if($formRegistration->isSubmitted() && $formRegistration->isValid())
         {
+            // Encodage du mot de passe
             $hash = $encoder->encodePassword($user, $user->getPassword());
 
             dump($hash);
 
+            // on renvoie le mot de passe dans l'entité donc la BDD
             $user->setPassword($hash);
 
             $manager->persist($user);
             $manager->flush();
+
+            // On stock en session un message de validation après la validation de l'inscription
+            $this->addFlash('success', "Felicitations ! Vous êtes maintenant inscrit, vous pouvez dès à present vous connecter !!");
+
+            // on Redirige l'internaute vers la connexion après la validation de l'inscription
+            return $this->redirectToRoute('security_login');
         }        
 
         return $this->render('security/registration.html.twig', [
@@ -57,7 +65,10 @@ class SecurityController extends AbstractController
         // Récupération du dernier username (email) saisi par l'internaute en cas d'erreur de connexion
         $lastEmail = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig');
+        return $this->render('security/login.html.twig', [
+            'error' => $error,
+            'lastEmail' => $lastEmail
+        ]);
     }
 
     /**

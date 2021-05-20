@@ -1,0 +1,72 @@
+{% extends "base_admin.html.twig" %}
+
+{% block title %}
+    BlogSymfony | Gestion des articles
+{% endblock %}
+
+{% block body %}
+    
+    {# <h1>Gestion des articles</h1> #}
+
+    {% for message in app.flashes('success') %}
+
+        <p class="col-md-4 bg-success text-center text-xhite mx-auto rounded">
+            {{ message }}
+        </p>
+        
+    {% endfor %}
+
+    <a href="{{ path('blog_create') }}" class="btn btn-primary my-4">CREATION D'UN NOUVEL ARTICLE</a>
+
+    <table class="table table-bordered mt-4">
+        
+        <tr class="text-center">
+        
+        {% for data in colonnes %}
+
+            <th>{{ data|upper }}</th>
+            
+        {% endfor %}
+            <th>CAT</th>
+            <th>NB COMMENT</th>
+            <th>EDITER</th>
+            <th>SUPP</th>
+        </tr>
+
+        {% for data in articles %}
+
+            <tr>
+                <td>{{ data.id }}</td>
+                <td><a href="{{ path('blog_show', {'id': data.id}) }}">{{ data.titre }}</a></td>
+                <td>{{ data.contenu|striptags }}</td>
+                <td><img src="{{ asset('uploads/images/' ~data.image) }}" alt="{{ data.titre }}" class="img-article"></td>
+                <td class="text-center">{{ data.date|date('d/m/Y à H:i:s') }}</td>
+                <td class="text-center">{{ data.category.titre }}</td>
+                <td class="text-center">{{ data.comments|length }}</td>
+
+                <td>
+                    <a href="{{ path('blog_edit', {'id': data.id}) }}" class="btn btn-dark">
+                        <i class=" bi bi-pencil-square"></i>
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ path('admin_article_remove', {'id': data.id}) }}" class="btn btn-danger" onclick="return(confirm('Voulez-vous réellement supprimer cet article?'));">
+                        <i class="bi bi-trash"></i>
+                    </a> 
+                </td>
+
+                {# Exo : ajouter 2 cellules dans le tableau : #}
+                {# 1. Afficher la categorie de l'article #}
+                {# 2. Afficher le nombre de commentaire de chaque article #}
+
+            
+            </tr>
+            
+        {% endfor %}
+    </table>
+{% endblock %}
+
+
+
+
+

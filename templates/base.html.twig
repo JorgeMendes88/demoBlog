@@ -41,6 +41,12 @@
 
                         {% if app.user %}
 
+                            {% if is_granted('ROLE_ADMIN') %}
+
+                                <a class="btn btn-sm btn-outline-secondary" href="{{ path('admin') }}">BACKOFFICE</a>
+
+                            {% endif %}
+                            &nbsp;
                             <a class="btn btn-sm btn-outline-secondary" href="{{ path('security_logout') }}">Déconnexion</a>
 
                         {% else %}
